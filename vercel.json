@@ -1,7 +1,8 @@
 {
   "rewrites": [
-    { "source": "/posts/:path*", "destination": "/posts/:path*.html" },
-    { "source": "/categories/:cat", "destination": "/index.html" }
+    { "source": "/posts/:path", "destination": "/posts/:path.html" },
+    { "source": "/categories/:cat", "destination": "/index.html" },
+    { "source": "/", "destination": "/index.html" }
   ],
   "headers": [
     {
