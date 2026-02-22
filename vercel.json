@@ -1,9 +1,0 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/posts/:path*", "destination": "/posts/:path*.html" },
-    { "source": "/categories/:cat", "destination": "/index.html" },
-    { "source": "/", "destination": "/index.html" }
-  ],
-  "trailingSlash": false
-}
