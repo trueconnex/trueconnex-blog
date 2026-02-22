@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrueConnex | Community & Stories</title>
+    <meta name="description" content="Stories about modern dating, safety, and the art of meeting offline. The Connection Chronicles by TrueConnex.">
+    <meta property="og:title" content="The Connection Chronicles — TrueConnex">
+    <meta property="og:description" content="Real stories about intentional dating and curated events in Mumbai, Bangalore, and Delhi.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Outfit"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            base: '#FFF0F5',
+                            primary: '#E11D48',
+                            secondary: '#DB2777',
+                            text: '#881337',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fce7f3 100%);
+            min-height: 100vh;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 40px rgba(225, 29, 72, 0.1);
+        }
+        .confession-cta {
+            background: linear-gradient(135deg, #be123c 0%, #db2777 100%);
+            color: white;
+        }
+
+        /* Category filter pills */
+        .cat-pill { transition: all 0.2s ease; cursor: pointer; }
+        .cat-pill:hover { background: rgba(225,29,72,0.08); border-color: #E11D48; color: #E11D48; }
+        .cat-pill.active { background: #E11D48; border-color: #E11D48; color: white; }
+
+        /* Skeleton shimmer */
+        @keyframes shimmer {
+            0%   { background-position: -600px 0; }
+            100% { background-position: 600px 0; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg,
+                rgba(255,192,203,0.25) 25%,
+                rgba(255,160,180,0.4)  50%,
+                rgba(255,192,203,0.25) 75%);
+            background-size: 600px 100%;
+            animation: shimmer 1.6s infinite;
+            border-radius: 12px;
+        }
+
+        /* Card entrance */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .post-enter {
+            animation: fadeUp 0.45s ease forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-text">
+
+    <!-- ── NAVIGATION ── -->
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <a href="https://trueconnex.in" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-lg">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <span class="text-2xl font-serif font-bold tracking-tight text-rose-900">TrueConnex</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="https://trueconnex.in" class="text-rose-800/70 hover:text-rose-600 font-medium transition-colors">Main Site</a>
+                <a href="#" class="text-rose-600 font-bold transition-colors">Stories</a>
+            </div>
+            <a href="https://instagram.com/trueconnex" target="_blank" class="text-rose-600 hover:text-rose-800 transition-colors">
+                <i class="fa-brands fa-instagram text-2xl"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <header class="pt-32 pb-10 text-center px-4">
+        <h1 class="text-5xl md:text-6xl font-serif text-rose-950 mb-4">The Connection Chronicles</h1>
+        <p class="text-rose-800/70 max-w-2xl mx-auto text-lg">
+            Stories about modern dating, safety, and the art of meeting offline.
+        </p>
+    </header>
+
+    <!-- ── CATEGORY PILLS ── -->
+    <div id="category-filters" class="flex justify-center flex-wrap gap-3 px-4 pb-10">
+        <button data-filter="all"        class="cat-pill active text-xs font-bold uppercase tracking-widest border border-rose-200 px-4 py-1.5 rounded-full">All</button>
+        <button data-filter="Love Story" class="cat-pill text-xs font-bold uppercase tracking-widest border border-rose-200 px-4 py-1.5 rounded-full text-rose-700">Love Stories</button>
+        <button data-filter="Tips"       class="cat-pill text-xs font-bold uppercase tracking-widest border border-rose-200 px-4 py-1.5 rounded-full text-rose-700">Tips</button>
+        <button data-filter="Experience" class="cat-pill text-xs font-bold uppercase tracking-widest border border-rose-200 px-4 py-1.5 rounded-full text-rose-700">Experiences</button>
+        <button data-filter="Safety"     class="cat-pill text-xs font-bold uppercase tracking-widest border border-rose-200 px-4 py-1.5 rounded-full text-rose-700">Safety</button>
+        <button data-filter="City Guide" class="cat-pill text-xs font-bold uppercase tracking-widest border border-rose-200 px-4 py-1.5 rounded-full text-rose-700">City Guides</button>
+    </div>
+
+    <!-- ── FEATURED POST (wide hero card) ── -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10" id="featured-section">
+        <!-- skeleton -->
+        <div id="featured-skeleton" class="glass-card rounded-3xl overflow-hidden grid md:grid-cols-2">
+            <div class="skeleton h-80 md:h-96"></div>
+            <div class="p-10 flex flex-col justify-center gap-4">
+                <div class="skeleton h-3 w-28 rounded-full"></div>
+                <div class="skeleton h-8 w-full rounded-xl"></div>
+                <div class="skeleton h-8 w-4/5 rounded-xl"></div>
+                <div class="skeleton h-4 w-full rounded-lg"></div>
+                <div class="skeleton h-4 w-5/6 rounded-lg"></div>
+                <div class="skeleton h-4 w-24 rounded-full mt-2"></div>
+            </div>
+        </div>
+        <div id="featured-card" class="hidden"></div>
+    </div>
+
+    <!-- ── BLOG GRID ── -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div class="grid md:grid-cols-3 gap-8" id="posts-grid">
+
+            <!-- Confession Box — always static, always first -->
+            <a href="confessions.html" class="confession-cta rounded-3xl p-8 flex flex-col justify-between shadow-xl transform hover:-translate-y-1 transition-all" style="min-height:420px">
+                <div>
+                    <i class="fa-solid fa-envelope-open-text text-3xl mb-4 text-rose-200"></i>
+                    <h3 class="text-3xl font-serif font-bold mb-4">The Confession Box</h3>
+                    <p class="text-rose-100 text-sm leading-relaxed">
+                        Spill your dating tea. Share your anonymous stories or missed connections.
+                    </p>
+                </div>
+                <div class="mt-6 flex items-center font-bold text-sm">
+                    Enter the Box <i class="fa-solid fa-arrow-right ml-2"></i>
+                </div>
+            </a>
+
+            <!-- Skeleton placeholders (replaced by JS) -->
+            <div class="glass-card rounded-3xl overflow-hidden _skeleton-slot">
+                <div class="skeleton h-64"></div>
+                <div class="p-8 space-y-3">
+                    <div class="skeleton h-3 w-20 rounded-full"></div>
+                    <div class="skeleton h-6 w-full rounded-xl"></div>
+                    <div class="skeleton h-6 w-3/4 rounded-xl"></div>
+                    <div class="skeleton h-4 w-full rounded-lg"></div>
+                    <div class="skeleton h-4 w-5/6 rounded-lg"></div>
+                </div>
+            </div>
+            <div class="glass-card rounded-3xl overflow-hidden _skeleton-slot">
+                <div class="skeleton h-64"></div>
+                <div class="p-8 space-y-3">
+                    <div class="skeleton h-3 w-20 rounded-full"></div>
+                    <div class="skeleton h-6 w-full rounded-xl"></div>
+                    <div class="skeleton h-6 w-3/4 rounded-xl"></div>
+                    <div class="skeleton h-4 w-full rounded-lg"></div>
+                    <div class="skeleton h-4 w-5/6 rounded-lg"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Load more -->
+        <div id="load-more-wrap" class="text-center mt-12 hidden">
+            <button onclick="loadMore()"
+                class="bg-white/60 backdrop-blur border border-rose-200 text-rose-700 font-semibold px-8 py-3 rounded-full hover:bg-rose-50 transition-all hover:-translate-y-0.5">
+                Load more stories &nbsp;<i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- ── INSTAGRAM CTA ── -->
+    <section class="py-16 bg-white/30 backdrop-blur-sm border-t border-rose-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <i class="fa-brands fa-instagram text-5xl text-rose-500 mb-6 block"></i>
+            <h2 class="text-3xl font-serif text-rose-950 mb-4">Join the Conversation on Instagram</h2>
+            <p class="text-rose-800/70 mb-8">
+                We post daily dating tips, event teasers, and community polls. DM us your questions!
+            </p>
+            <a href="https://instagram.com/trueconnex" target="_blank"
+               class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-pink-500/40 transition-all transform hover:-translate-y-1">
+                Follow @trueconnex
+            </a>
+        </div>
+    </section>
+
+    <!-- ── MEMBERSHIP CTA ── -->
+    <section class="py-16 px-4">
+        <div class="max-w-3xl mx-auto glass-card rounded-3xl p-10 text-center">
+            <p class="text-xs text-rose-400 font-bold uppercase tracking-[0.18em] mb-3">Ready to write your own story?</p>
+            <h2 class="text-3xl md:text-4xl font-serif text-rose-950 mb-4">
+                Join India's Most Intentional<br>Dating Community
+            </h2>
+            <p class="text-rose-800/70 mb-8 max-w-lg mx-auto">
+                ID-verified members. 50:50 gender ratio. Curated events in Mumbai, Bangalore &amp; Delhi.
+            </p>
+            <a href="https://rzp.io/rzp/kJrq5La" target="_blank"
+               class="inline-block bg-gradient-to-r from-rose-600 to-pink-500 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-rose-400/40 transition-all transform hover:-translate-y-1">
+                Secure Your Spot — ₹2,499
+            </a>
+            <p class="text-rose-300 text-xs mt-4">Includes ID verification · Lifetime access to all event waitlists</p>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="py-12 bg-white/30 backdrop-blur-sm border-t border-rose-100 text-center">
+        <div class="flex justify-center gap-6 mb-8 text-rose-600 text-sm">
+            <a href="https://trueconnex.in"         class="hover:text-rose-900 font-medium">Main Site</a>
+            <a href="#"                             class="hover:text-rose-900 font-bold">Stories</a>
+            <a href="https://instagram.com/trueconnex" class="hover:text-rose-900 font-medium">Instagram</a>
+        </div>
+        <p class="text-rose-800/20 text-[10px] uppercase tracking-widest">&copy; 2025 TrueConnex Community.</p>
+    </footer>
+
+
+    <!-- ── SCRIPT ── -->
+    <script>
+        // ── STATE
+        let allPosts     = [];
+        let filtered     = [];
+        let visibleCount = 8;
+        let activeFilter = 'all';
+
+        // Per-category Unsplash fallbacks (matches existing site images)
+        const fallback = {
+            'Love Story':  'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80',
+            'Tips':        'https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=800&q=80',
+            'Experience':  'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80',
+            'Safety':      'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80',
+            'City Guide':  'https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=800&q=80',
+            'default':     'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&q=80',
+        };
+        const img = p => p.image || fallback[p.category] || fallback.default;
+        const err = p => `this.onerror=null;this.src='${fallback[p.category]||fallback.default}'`;
+        const mins = () => Math.floor(Math.random() * 4) + 2;
+
+        // ── FEATURED
+        function renderFeatured(p) {
+            document.getElementById('featured-skeleton').classList.add('hidden');
+            const el = document.getElementById('featured-card');
+            el.classList.remove('hidden');
+            el.innerHTML = `
+              <a href="${p.url}" class="glass-card rounded-3xl overflow-hidden grid md:grid-cols-2 group block">
+                <div class="relative h-72 md:h-auto overflow-hidden">
+                  <img src="${img(p)}" alt="${p.alt||p.title}"
+                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                       onerror="${err(p)}">
+                  <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-rose-600 uppercase tracking-widest">
+                      ✦ Latest · ${p.category||'Story'}
+                  </div>
+                  ${p.city?`<div class="absolute bottom-4 left-4 bg-rose-600/80 text-white px-3 py-1 rounded-full text-xs font-semibold backdrop-blur">${p.city}</div>`:''}
+                </div>
+                <div class="p-10 flex flex-col justify-center">
+                  <div class="text-xs text-rose-400 mb-3">${p.date||''} · Latest story</div>
+                  <h2 class="text-3xl md:text-4xl font-serif font-bold text-rose-900 mb-4 group-hover:text-rose-600 transition-colors leading-snug">${p.title}</h2>
+                  <p class="text-rose-800/70 text-sm leading-relaxed mb-6 line-clamp-3">${p.summary||''}</p>
+                  <div class="flex items-center text-rose-600 font-bold text-sm">
+                      Read Full Story <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                  </div>
+                </div>
+              </a>`;
+        }
+
+        // ── POST CARD (matches exact article card structure from original)
+        function cardHTML(p, delay) {
+            return `
+              <a href="${p.url}"
+                 class="glass-card rounded-3xl overflow-hidden group block post-enter"
+                 style="animation-delay:${delay}ms">
+                <div class="h-64 overflow-hidden relative">
+                  <img src="${img(p)}" alt="${p.alt||p.title}"
+                       class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                       loading="lazy" onerror="${err(p)}">
+                  <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-rose-600 uppercase tracking-widest">
+                      ${p.category||'Story'}
+                  </div>
+                  ${p.city?`<div class="absolute top-4 right-4 bg-rose-50/80 backdrop-blur text-rose-600 px-2.5 py-0.5 rounded-full text-[10px] font-semibold">${p.city}</div>`:''}
+                </div>
+                <div class="p-8">
+                  <div class="text-xs text-rose-400 mb-2">${p.date||''} · ${mins()} min read</div>
+                  <h3 class="text-2xl font-serif font-bold text-rose-900 mb-3 group-hover:text-rose-600 transition-colors leading-snug">${p.title}</h3>
+                  <p class="text-rose-800/70 text-sm line-clamp-3 leading-relaxed">${p.summary||''}</p>
+                  <div class="mt-6 flex items-center text-rose-600 font-bold text-sm">
+                      Read Story <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                  </div>
+                </div>
+              </a>`;
+        }
+
+        // ── RENDER GRID
+        function renderGrid() {
+            const grid   = document.getElementById('posts-grid');
+            const confBox = grid.firstElementChild; // keep confession box
+
+            // remove skeleton slots + old cards
+            [...grid.querySelectorAll('._skeleton-slot, .post-enter')].forEach(el => el.remove());
+
+            const slice = filtered.slice(0, visibleCount);
+
+            if (slice.length === 0) {
+                grid.insertAdjacentHTML('beforeend', `
+                  <div class="md:col-span-2 glass-card rounded-3xl p-12 text-center">
+                    <i class="fa-solid fa-heart-crack text-4xl text-rose-300 mb-4 block"></i>
+                    <p class="font-serif text-xl text-rose-700">No stories here yet</p>
+                    <p class="text-rose-400 text-sm mt-2">Check back soon — new stories drop daily ✨</p>
+                  </div>`);
+            } else {
+                slice.forEach((p, i) => grid.insertAdjacentHTML('beforeend', cardHTML(p, i * 55)));
+            }
+
+            const wrap = document.getElementById('load-more-wrap');
+            filtered.length > visibleCount ? wrap.classList.remove('hidden') : wrap.classList.add('hidden');
+        }
+
+        function loadMore() { visibleCount += 6; renderGrid(); }
+
+        // ── FILTER PILLS
+        document.getElementById('category-filters').addEventListener('click', e => {
+            const pill = e.target.closest('.cat-pill');
+            if (!pill) return;
+            document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            activeFilter = pill.dataset.filter;
+            visibleCount = 8;
+            filtered = activeFilter === 'all'
+                ? allPosts.slice(1)
+                : allPosts.filter(p => p.category === activeFilter);
+            renderGrid();
+        });
+
+        // ── INIT: fetch post-index.json, fall back to static content
+        async function init() {
+            try {
+                const res = await fetch('/post-index.json');
+                if (!res.ok) throw new Error();
+                const data = await res.json();
+                allPosts = data.slice().reverse();
+
+                if (allPosts.length) renderFeatured(allPosts[0]);
+                else document.getElementById('featured-skeleton').classList.add('hidden');
+
+                filtered = allPosts.slice(1);
+                renderGrid();
+
+            } catch(_) {
+                // Graceful fallback — show same 3 articles as original site
+                document.getElementById('featured-skeleton').classList.add('hidden');
+
+                allPosts = [
+                    {
+                        url: 'blog_post.html',
+                        image: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                        category: 'Safety', date: 'March 10, 2025',
+                        title: 'Why "Verified" is the New Love Language',
+                        summary: 'In an age of AI bots and catfishing, ID verification isn\'t just a feature—it\'s a necessity. Here is how TrueConnex ensures you\'re meeting a real person.'
+                    },
+                    {
+                        url: 'blog_post.html',
+                        image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                        category: 'Experience', date: 'March 08, 2025',
+                        title: 'The Psychology of Sensory Dining',
+                        summary: 'Why do we blindfold guests at dinner? Removing visual bias allows personality and chemistry to take center stage.'
+                    },
+                    {
+                        url: 'blog_post.html',
+                        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+                        category: 'Tips', date: 'March 05, 2025',
+                        title: '5 Conversation Starters That Actually Work',
+                        summary: 'Forget "What do you do?" Try these questions to spark genuine intrigue at our next Yacht Mixer.'
+                    }
+                ];
+
+                renderFeatured(allPosts[0]);
+                filtered = allPosts.slice(1);
+                renderGrid();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
