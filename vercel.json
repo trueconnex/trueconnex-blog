@@ -1,22 +1,9 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/posts/:path*", "destination": "/posts/:path*.html" },
     { "source": "/categories/:cat", "destination": "/index.html" },
     { "source": "/", "destination": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/images/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/posts/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
-      ]
-    }
   ],
   "trailingSlash": false
 }
